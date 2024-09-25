@@ -23,18 +23,6 @@ public class Game {
             board = new Board();
         }
 
-        /* tests
-        board.placeMarker(0,0,1);
-        board.placeMarker(1,1,1);
-        board.placeMarker(2,2,1);
-
-        board.placeMarker(1,2,2);
-        board.placeMarker(0,1,2);
-        board.placeMarker(0,2,2);
-        board.placeMarker(1,0,2);
-        board.placeMarker(2,0,1);
-        board.placeMarker(2,1,2);
-        */
         Scanner s = new Scanner(System.in);
         while(board.checkWin() == 0) {
             System.out.println("Turn #" + (turn+1) + "\n");
@@ -52,6 +40,17 @@ public class Game {
             clearConsole();
         };
         gameOver = true; // set so the tutorial doesn't repeat
+
+        if (board.checkWin() == -2) {
+            System.out.println("Looks like no one won, and after " + turn + " turns of hard work...\n");
+            board.print();
+            System.out.println("\nWell that sucks, but good try anyway - the both of you. Maybe next time someone will actually win!\n");
+            System.out.print("Press [Enter] to continue...");
+            s.nextLine();
+            clearConsole();
+            board.cleanBoard();
+            return;
+        }
 
         System.out.println("CONGRATS PLAYER " + ( ((turn - 1) % 2) + 1) + " (" + ( ( (turn) % 2 ) == 1 ? 'X' : '0' ) + ") - you won!!! See the final board below.\n");
         board.print();

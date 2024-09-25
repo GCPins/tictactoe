@@ -42,7 +42,6 @@ public class Board {
         }
     }
 
-    // doesn't currently work - maybe change the logic?? how do we determine WHICH player has won?
     public int checkWin() {
 
         boolean check = true;
@@ -96,9 +95,21 @@ public class Board {
                 check = false;
             }
         }
+
         if (check) {
             //System.out.println("check is true @ diag topright check for #" + temp);
             return temp;
+        }
+
+        int numFilled = 0;
+        for (int i = 0; i < NUM_ROWS; i++) {
+            for (int j = 0; j < NUM_COL; j++) {
+                if (board[i][j] != 0) ++numFilled;
+            }
+        }
+
+        if (numFilled >= NUM_ROWS * NUM_COL) {
+            return -2; // return code for cat's game
         }
 
         return 0;
